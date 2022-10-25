@@ -22,8 +22,8 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public UserReadResponse findById(@PathVariable(value = "id") UUID id) {
+    @GetMapping("/{userUuid}")
+    public UserReadResponse findById(@PathVariable(value = "userUuid") UUID id) {
         return userService.findById(id);
     }
 
@@ -32,13 +32,13 @@ public class UserController {
         return userService.save(user);
     }
 
-    @PutMapping("/{id}")
-    public UserUpdateResponse update(@PathVariable(value = "id") UUID id, UserUpdateRequest user) {
+    @PutMapping("/{userUuid}")
+    public UserUpdateResponse update(@PathVariable(value = "userUuid") UUID id, UserUpdateRequest user) {
         return userService.update(user, id);
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable(value = "id") UUID id) {
+    @DeleteMapping("/{userUuid}")
+    public void delete(@PathVariable(value = "userUuid") UUID id) {
         userService.delete(id);
     }
 }

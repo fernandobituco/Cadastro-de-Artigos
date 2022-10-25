@@ -4,6 +4,7 @@ import com.fernandoaudax.cadastrodeartigos.repository.ArticleRepository;
 import com.fernandoaudax.cadastrodeartigos.schemas.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,7 +21,7 @@ public class ArticleServiceImpl implements ArticleService{
     }
 
     @Override
-    public ArticleReadResponse findAll() {
+    public List<ArticleReadResponse> findAll() {
         return null;
     }
 

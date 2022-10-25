@@ -1,8 +1,13 @@
 package com.fernandoaudax.cadastrodeartigos.schemas;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@Getter
+@Setter
 public class UserCreateRequest {
     @NotBlank
     @Size(min = 3, max = 150, message = "The username must be 3 to 150 characters long")
