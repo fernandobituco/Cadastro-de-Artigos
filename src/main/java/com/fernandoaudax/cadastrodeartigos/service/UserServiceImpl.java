@@ -1,11 +1,18 @@
 package com.fernandoaudax.cadastrodeartigos.service;
 
+import com.fernandoaudax.cadastrodeartigos.ExceptionHandlers.UserNotFoundException;
+import com.fernandoaudax.cadastrodeartigos.entity.User;
 import com.fernandoaudax.cadastrodeartigos.repository.UserRepository;
 import com.fernandoaudax.cadastrodeartigos.schemas.*;
+import org.hibernate.TypeMismatchException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements  UserService{
@@ -17,26 +24,39 @@ public class UserServiceImpl implements  UserService{
 
     @Override
     public UserCreateResponse save(UserCreateRequest user) {
-        return null;
+        User saveUser = new User(user);
+        userRepository.save(saveUser);
+        return new UserCreateResponse(saveUser);
     }
 
     @Override
     public List<UserReadResponse> findAll() {
-        return null;
+        return userRepository.findAll().stream().map(UserReadResponse::new).collect(Collectors.toList());
     }
 
-    @Override
-    public UserReadResponse findById(UUID id) {
-        return null;
+    @Transactional
+    public User findById(UUID id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+        return user.get();
     }
 
-    @Override
-    public UserUpdateResponse update(UserUpdateRequest userUpdate, UUID id) {
-        return null;
+    @Transactional
+    public User update(UserUpdateRequest userUpdate, UUID id) {
+        User user = findById(id);
+        user.setUsername(userUpdate.getUsername());
+        user.setPassword(user.getPassword());
+        return user;
     }
 
-    @Override
+    @Transactional
     public void delete(UUID id) {
-
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException();
+        } else {
+            userRepository.deleteById(id);
+        }
     }
 }

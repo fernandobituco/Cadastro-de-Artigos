@@ -1,5 +1,6 @@
 package com.fernandoaudax.cadastrodeartigos.schemas;
 
+import com.fernandoaudax.cadastrodeartigos.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,4 +18,10 @@ public class UserReadResponse {
 
     @NotBlank
     private String registeredAt;
+
+    public UserReadResponse(User user) {
+        this.uuid = user.getUuid();
+        this.username = user.getUsername();
+        this.registeredAt = user.getRegisteredAt();
+    }
 }

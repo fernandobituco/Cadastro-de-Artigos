@@ -1,5 +1,6 @@
 package com.fernandoaudax.cadastrodeartigos.service;
 
+import com.fernandoaudax.cadastrodeartigos.entity.User;
 import com.fernandoaudax.cadastrodeartigos.schemas.*;
 
 import java.util.List;
@@ -10,9 +11,9 @@ public interface UserService {
 
     List<UserReadResponse> findAll();
 
-    UserReadResponse findById(UUID id);
+    User findById(UUID id);
 
-    UserUpdateResponse update(UserUpdateRequest userUpdate, UUID id);
+    User update(UserUpdateRequest userUpdate, UUID id);
 
     void delete(UUID id);
 }
